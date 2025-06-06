@@ -32,7 +32,7 @@ Follow these simple steps to get the application running on your Windows machine
 ### Installation & Usage
 
 1.  **Download the Application**
-    - Go to the [**Releases**](https://github.com/your-username/your-repo-name/releases) page of this repository.
+    - Go to the [**Releases**](https://github.com/marfre001/YoutubeDownloader/releases) page of this repository.
     - Download the latest `YouTube-Downloader-Pro.zip` file.
     - Extract the contents of the ZIP file to a folder on your computer (e.g., on your Desktop).
 
