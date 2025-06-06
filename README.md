@@ -2,9 +2,6 @@
 
 A user-friendly, standalone desktop application for Windows to download video and audio from YouTube. Built with Python, Tkinter, and `yt-dlp`.
 
-
-*(You can replace this with a screenshot of your application)*
-
 ---
 
 ## ✨ Features
@@ -82,4 +79,8 @@ This project is designed to be as user-friendly as possible by bundling its depe
 
 ## ⚠️ Disclaimer
 
+<<<<<<< HEAD
 This tool is for personal and educational use only. Downloading copyrighted content without permission may be illegal in your country. The developers of this application are not responsible for its misuse. Please respect copyright laws and YouTube's terms of service.
+=======
+This tool is for personal and educational use only. Downloading copyrighted content without permission may be illegal in your country. The developers of this application are not responsible for its misuse. Please respect copyright laws and YouTube's terms of service.
+>>>>>>> 93ce6df1ff5a687c37cdb322f32726faf4b6a20c
