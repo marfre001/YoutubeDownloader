@@ -9,8 +9,8 @@ import sys
 import datetime
 import re
 
-# ... (Le funzioni check_ffmpeg, run_main_app, update_yt_dlp, e main rimangono invariate) ...
-# ... (Assicurati di avere la versione precedente completa) ...
+# ... (The functions check_ffmpeg, run_main_app, update_yt_dlp, and main remain unchanged) ...
+# ... (Ensure you have the complete previous version) ...
 
 def check_ffmpeg():
     """Checks if FFmpeg is installed and accessible in the system's PATH."""
@@ -27,8 +27,8 @@ class YouTubeDownloader:
         self.root = root
         self.root.title("YouTube Downloader Pro")
         
-        # --- MODIFICA: Rimuoviamo l'altezza fissa e impostiamo una dimensione minima ---
-        # Questo permette alla finestra di essere più piccola su schermi con bassa risoluzione.
+        # --- MODIFICATION: Remove fixed height and set a minimum size ---
+        # This allows the window to be smaller on low-resolution screens.
         self.root.minsize(600, 550) 
         
         # Interface state variables
@@ -73,15 +73,15 @@ class YouTubeDownloader:
         self.style.configure('Secondary.TButton', font=('Segoe UI', 9), padding=(8, 4))
 
     def create_widgets(self):
-        # --- MODIFICA PRINCIPALE: Creazione di un'area scorrevole ---
+        # --- MAIN MODIFICATION: Creation of a scrollable area ---
 
-        # 1. Frame principale che conterrà il Canvas e la Scrollbar
+        # 1. Main frame that will contain the Canvas and the Scrollbar
         main_frame = ttk.Frame(self.root)
         main_frame.pack(fill=tk.BOTH, expand=True)
         main_frame.rowconfigure(0, weight=1)
         main_frame.columnconfigure(0, weight=1)
 
-        # 2. Creazione del Canvas e della Scrollbar
+        # 2. Creation of the Canvas and Scrollbar
         canvas = tk.Canvas(main_frame)
         scrollbar = ttk.Scrollbar(main_frame, orient="vertical", command=canvas.yview)
         canvas.configure(yscrollcommand=scrollbar.set)
@@ -89,26 +89,26 @@ class YouTubeDownloader:
         scrollbar.grid(row=0, column=1, sticky='ns')
         canvas.grid(row=0, column=0, sticky='nsew')
 
-        # 3. Creazione del frame interno che conterrà tutti i widget
+        # 3. Creation of the inner frame that will contain all widgets
         self.scrollable_frame = ttk.Frame(canvas, padding="25")
         self.scrollable_frame_window = canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
 
-        # 4. Funzioni per far funzionare lo scrolling e il ridimensionamento
+        # 4. Functions to make scrolling and resizing work
         def on_frame_configure(event):
-            # Aggiorna la scrollregion del canvas per includere tutto il contenuto
+            # Update the canvas's scrollregion to include all content
             canvas.configure(scrollregion=canvas.bbox("all"))
 
         def on_canvas_configure(event):
-            # Ridimensiona il frame interno per riempire la larghezza del canvas
+            # Resize the inner frame to fill the canvas width
             canvas.itemconfig(self.scrollable_frame_window, width=event.width)
 
         self.scrollable_frame.bind("<Configure>", on_frame_configure)
         canvas.bind("<Configure>", on_canvas_configure)
         
-        # Configurazione del layout per il frame scorrevole
+        # Layout configuration for the scrollable frame
         self.scrollable_frame.columnconfigure(1, weight=1)
 
-        # --- Da qui in poi, tutti i widget vengono aggiunti a 'self.scrollable_frame' ---
+        # --- From now on, all widgets are added to 'self.scrollable_frame' ---
 
         # Header
         header_frame = ttk.Frame(self.scrollable_frame)
@@ -132,7 +132,7 @@ class YouTubeDownloader:
         url_entry = ttk.Entry(url_entry_frame, textvariable=self.url_var, font=('Segoe UI', 10))
         url_entry.grid(row=0, column=0, sticky=(tk.W, tk.E), ipady=6, padx=(0, 10))
 
-        self.fetch_btn = ttk.Button(url_entry_frame, text="Verifica Formati", 
+        self.fetch_btn = ttk.Button(url_entry_frame, text="Fetch Formats", 
                                     command=self.fetch_formats_thread, style='Secondary.TButton')
         self.fetch_btn.grid(row=0, column=1, sticky=tk.E)
 
@@ -209,7 +209,7 @@ class YouTubeDownloader:
         self.progress = ttk.Progressbar(progress_frame, mode='determinate', maximum=100)
         self.progress.grid(row=0, column=0, sticky=(tk.W, tk.E), pady=(0, 5), ipady=3)
         
-        self.progress_label = ttk.Label(progress_frame, text="Ready. Inserisci un URL e verifica i formati.", 
+        self.progress_label = ttk.Label(progress_frame, text="Ready. Enter a URL and fetch formats.", 
                                       font=('Segoe UI', 9))
         self.progress_label.grid(row=1, column=0)
 
@@ -217,7 +217,7 @@ class YouTubeDownloader:
         log_frame = ttk.LabelFrame(self.scrollable_frame, text="Log", padding="15")
         log_frame.grid(row=8, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S))
         log_frame.columnconfigure(0, weight=1)
-        # La riga del log non deve più espandersi verticalmente, ci pensa lo scroll
+        # The log row no longer needs to expand vertically; the scrollbar handles it.
         # self.scrollable_frame.rowconfigure(8, weight=1) 
         
         log_container = ttk.Frame(log_frame)
@@ -225,7 +225,7 @@ class YouTubeDownloader:
         log_container.columnconfigure(0, weight=1)
         log_container.rowconfigure(0, weight=1)
         
-        self.log_text = tk.Text(log_container, height=8, wrap=tk.WORD, # Aumentiamo un po' l'altezza di default
+        self.log_text = tk.Text(log_container, height=8, wrap=tk.WORD, # Slightly increased default height
                               font=('Consolas', 8),
                               relief="sunken", borderwidth=1)
         log_scrollbar = ttk.Scrollbar(log_container, orient="vertical", command=self.log_text.yview)
@@ -237,7 +237,7 @@ class YouTubeDownloader:
         # Initialize state
         self.toggle_quality_widgets()
 
-    # ... (Tutti gli altri metodi della classe rimangono invariati) ...
+    # ... (All other class methods remain unchanged) ...
     def toggle_quality_widgets(self):
         if self.format_var.get() == "audio":
             self.audio_quality_combobox.config(state='readonly')
@@ -272,7 +272,7 @@ class YouTubeDownloader:
 
     def reset_progress(self):
         self.progress['value'] = 0
-        self.progress_label.config(text="Pronto per un nuovo download.")
+        self.progress_label.config(text="Ready for a new download.")
         self.root.update_idletasks()
 
     def fetch_formats_thread(self):
@@ -281,10 +281,10 @@ class YouTubeDownloader:
             messagebox.showerror("Error", "Please enter a valid URL!")
             return
 
-        self.fetch_btn.config(state='disabled', text='Verifica...')
+        self.fetch_btn.config(state='disabled', text='Fetching...')
         self.download_btn.config(state='disabled')
-        self.log_message(f"Verifica formati per: {url}")
-        self.progress_label.config(text="Verifica formati disponibili...")
+        self.log_message(f"Fetching formats for: {url}")
+        self.progress_label.config(text="Fetching available formats...")
         
         self.video_quality_map.clear()
         self.video_quality_combobox.set('')
@@ -305,12 +305,12 @@ class YouTubeDownloader:
                     available_heights.add(f['height'])
 
             if not available_heights:
-                self.log_message("✗ Nessun formato video MP4 trovato per questo URL.")
-                messagebox.showerror("Errore", "Nessun formato video MP4 compatibile trovato.")
+                self.log_message("✗ No MP4 video formats found for this URL.")
+                messagebox.showerror("Error", "No compatible MP4 video formats found.")
                 return
 
             self.video_quality_map.clear()
-            self.video_quality_map["Best Available (fino a 4K)"] = 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
+            self.video_quality_map["Best Available (up to 4K)"] = 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
             
             for height in sorted(list(available_heights), reverse=True):
                 label = f"{height}p"
@@ -318,18 +318,18 @@ class YouTubeDownloader:
                 if label not in self.video_quality_map:
                     self.video_quality_map[label] = selector
             
-            self.log_message(f"✓ Trovati {len(self.video_quality_map)} opzioni di qualità video.")
+            self.log_message(f"✓ Found {len(self.video_quality_map)} video quality options.")
             self.root.after(0, self.update_video_quality_list)
 
         except ImportError:
-            self.log_message("✗ ERRORE: La libreria 'yt-dlp' non è installata.")
-            messagebox.showerror("Errore Libreria", "La libreria yt-dlp non è installata.\n\nPer installarla, apri un terminale e digita:\npip install yt-dlp")
+            self.log_message("✗ ERROR: The 'yt-dlp' library is not installed.")
+            messagebox.showerror("Library Error", "The yt-dlp library is not installed.\n\nTo install it, open a terminal and type:\npip install yt-dlp")
         except Exception as e:
-            self.log_message(f"✗ Errore durante la verifica dei formati: {str(e)}")
-            messagebox.showerror("Errore", f"Impossibile verificare i formati.\nL'URL è valido? C'è connessione a internet?\n\nDettagli: {str(e)}")
+            self.log_message(f"✗ Error while fetching formats: {str(e)}")
+            messagebox.showerror("Error", f"Could not fetch formats.\nIs the URL valid? Is there an internet connection?\n\nDetails: {str(e)}")
         finally:
-            self.fetch_btn.config(state='normal', text='Verifica Formati')
-            self.progress_label.config(text="Pronto. Seleziona un formato e scarica.")
+            self.fetch_btn.config(state='normal', text='Fetch Formats')
+            self.progress_label.config(text="Ready. Select a format and download.")
 
     def update_video_quality_list(self):
         def sort_key(x):
@@ -351,16 +351,16 @@ class YouTubeDownloader:
             return
 
         if self.format_var.get() == 'video' and not self.video_quality_var.get():
-            messagebox.showerror("Error", "Per favore, verifica i formati video disponibili prima di scaricare.")
+            messagebox.showerror("Error", "Please, fetch the available video formats before downloading.")
             return
 
         if self.format_var.get() == 'audio':
             if not check_ffmpeg():
-                self.log_message("✗ ERRORE: FFmpeg non trovato o non configurato nel PATH.")
+                self.log_message("✗ ERROR: FFmpeg not found or not configured in the system PATH.")
                 messagebox.showerror(
                     "FFmpeg Not Found",
-                    "FFmpeg è richiesto per scaricare in formato MP3. "
-                    "Assicurati che sia installato e configurato nel PATH di sistema."
+                    "FFmpeg is required for downloading in MP3 format. "
+                    "Please ensure it is installed and configured in the system PATH."
                 )
                 return
 
@@ -432,8 +432,8 @@ class YouTubeDownloader:
                 format_code = self.video_quality_map.get(selected_quality_text)
                 
                 if not format_code:
-                    self.log_message(f"✗ ERRORE: Opzione di qualità '{selected_quality_text}' non valida.")
-                    messagebox.showerror("Errore", f"L'opzione di qualità selezionata '{selected_quality_text}' non è valida. Riprova a verificare i formati.")
+                    self.log_message(f"✗ ERROR: Invalid quality option '{selected_quality_text}'.")
+                    messagebox.showerror("Error", f"The selected quality option '{selected_quality_text}' is not valid. Please try fetching the formats again.")
                     return
 
                 self.log_message(f"MP4 Video format, quality: {selected_quality_text}")
@@ -447,36 +447,36 @@ class YouTubeDownloader:
             messagebox.showinfo("Success", "Download complete!")
 
         except ImportError:
-            self.log_message("✗ ERRORE: La libreria 'yt-dlp' non è installata.")
-            messagebox.showerror("Errore Libreria", "La libreria yt-dlp non è installata.\n\nPer installarla, apri un terminale o command prompt e digita:\npip install yt-dlp")
+            self.log_message("✗ ERROR: The 'yt-dlp' library is not installed.")
+            messagebox.showerror("Library Error", "The yt-dlp library is not installed.\n\nTo install it, open a terminal or command prompt and type:\npip install yt-dlp")
         except Exception as e:
             error_message = str(e)
             clean_error = re.sub(r'\x1b\[[0-9;]*m', '', error_message)
-            self.log_message(f"✗ Errore con yt-dlp: {clean_error}")
+            self.log_message(f"✗ Error with yt-dlp: {clean_error}")
             messagebox.showerror("yt-dlp Error", f"An error occurred during the download:\n{clean_error}")
 
 def run_main_app():
-    """Crea e avvia la finestra principale dell'applicazione."""
+    """Creates and starts the main application window."""
     root = tk.Tk()
     app = YouTubeDownloader(root)
     root.mainloop()
 
 def update_yt_dlp(loading_window, status_label, on_complete_callback):
     """
-    Trova l'interprete Python portatile e aggiorna yt-dlp.
-    Questa funzione è progettata per essere eseguita in un thread separato.
+    Finds the portable Python interpreter and updates yt-dlp.
+    This function is designed to be run in a separate thread.
     """
     try:
         script_dir = os.path.dirname(os.path.abspath(__file__))
         python_exe = os.path.join(script_dir, 'python', 'python.exe')
 
         if not os.path.exists(python_exe):
-            status_label.config(text="Errore: python.exe non trovato!")
-            messagebox.showerror("Errore Critico", f"L'interprete Python non è stato trovato nel percorso atteso:\n{python_exe}")
+            status_label.config(text="Error: python.exe not found!")
+            messagebox.showerror("Critical Error", f"The Python interpreter was not found in the expected path:\n{python_exe}")
             loading_window.destroy()
             return
 
-        status_label.config(text="Aggiornamento di yt-dlp in corso...")
+        status_label.config(text="Updating yt-dlp...")
         loading_window.update_idletasks()
 
         command = [python_exe, "-m", "pip", "install", "--upgrade", "yt-dlp"]
@@ -489,22 +489,22 @@ def update_yt_dlp(loading_window, status_label, on_complete_callback):
         result = subprocess.run(command, capture_output=True, text=True, check=False, startupinfo=startupinfo)
 
         if result.returncode != 0:
-            print(f"ATTENZIONE: Impossibile aggiornare yt-dlp. Errore:\n{result.stderr}")
-            status_label.config(text="Avvio dell'applicazione...")
+            print(f"WARNING: Could not update yt-dlp. Error:\n{result.stderr}")
+            status_label.config(text="Starting the application...")
         else:
-            print("yt-dlp è aggiornato.")
-            status_label.config(text="Avvio dell'applicazione...")
+            print("yt-dlp is up to date.")
+            status_label.config(text="Starting the application...")
 
     except Exception as e:
-        print(f"Errore imprevisto durante l'aggiornamento: {e}")
-        messagebox.showwarning("Avviso Aggiornamento", f"Non è stato possibile verificare gli aggiornamenti per yt-dlp.\nL'app potrebbe non funzionare correttamente.\n\nDettagli: {e}")
+        print(f"Unexpected error during update: {e}")
+        messagebox.showwarning("Update Warning", f"Could not check for yt-dlp updates.\nThe app might not work correctly.\n\nDetails: {e}")
     finally:
         loading_window.after(500, on_complete_callback)
 
 def main():
-    """Funzione principale che gestisce la finestra di caricamento e l'aggiornamento."""
+    """Main function that handles the loading window and the update process."""
     loading_root = tk.Tk()
-    loading_root.title("Avvio in corso")
+    loading_root.title("Starting...")
     loading_root.geometry("350x100")
     loading_root.resizable(False, False)
     
@@ -514,7 +514,7 @@ def main():
     y = (screen_height / 2) - (100 / 2)
     loading_root.geometry(f'+{int(x)}+{int(y)}')
 
-    status_label = ttk.Label(loading_root, text="Verifica aggiornamenti per yt-dlp...", font=('Segoe UI', 10))
+    status_label = ttk.Label(loading_root, text="Checking for yt-dlp updates...", font=('Segoe UI', 10))
     status_label.pack(pady=20)
     
     progress = ttk.Progressbar(loading_root, mode='indeterminate')
@@ -522,7 +522,7 @@ def main():
     progress.start(10)
 
     def start_app_and_close_loading():
-        """Distrugge la finestra di caricamento e avvia l'app principale."""
+        """Destroys the loading window and starts the main app."""
         loading_root.destroy()
         run_main_app()
 
