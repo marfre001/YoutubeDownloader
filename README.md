@@ -66,17 +66,17 @@ This project is designed to be as user-friendly as possible by bundling its depe
 ---
 
 ## 📂 File Structure
-Use code with caution.
-Markdown
-.
-├── python/ # Embedded Python interpreter and libraries
-├── ytd.py # The main application source code
-├── guide.html # A detailed user guide (in Italian)
-├── Install_FFmpeg.bat # Script to automatically install FFmpeg
-├── Start_App.bat # Script to launch the application
-└── README.md # This file
----
 
+```text
+.
+├── python/              # Embedded Python interpreter and libraries
+├── ytd.py               # The main application source code
+├── guide.html           # A detailed user guide (in Italian)
+├── Install_FFmpeg.bat   # Script to automatically install FFmpeg
+├── Start_App.bat        # Script to launch the application
+└── README.md            # This file
+
+```
 ## ⚠️ Disclaimer
 
 This tool is for personal and educational use only. Downloading copyrighted content without permission may be illegal in your country. The developers of this application are not responsible for its misuse. Please respect copyright laws and YouTube's terms of service.
