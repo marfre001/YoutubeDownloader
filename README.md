@@ -71,7 +71,7 @@ This project is designed to be as user-friendly as possible by bundling its depe
 .
 ├── python/              # Embedded Python interpreter and libraries
 ├── ytd.py               # The main application source code
-├── guide.html           # A detailed user guide (in Italian)
+├── guide.html           # A detailed user guide (in English)
 ├── Install_FFmpeg.bat   # Script to automatically install FFmpeg
 ├── Start_App.bat        # Script to launch the application
 └── README.md            # This file
